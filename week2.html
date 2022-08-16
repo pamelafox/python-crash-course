@@ -390,10 +390,9 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.1.0/dist/reveal.js"></script>
-    <!-- For code highlighting -->
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.1.0/plugin/highlight/highlight.js"></script>
-    <!-- For code copy-to-clipboard button -->
     <script src="https://cdn.jsdelivr.net/npm/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js-menu@2.1.0/menu.js"></script>
     <script>
         const srcUrlPrefix = "https://cdn.jsdelivr.net/npm/reveal.js@4.1.0/";
         Reveal.initialize({
@@ -403,8 +402,7 @@
             showNotes: false,
             margin: 0.1,
             preloadIframes: true,
-            plugins: [ RevealHighlight ],
-            pdfSeparateFragments: true,
+            plugins: [ RevealHighlight, RevealMenu ],
             transition: "none"
         });
 
@@ -413,7 +411,7 @@
             copyIconContent: "📄",
             checkIconContent: "✅"
         };
-        window.highlightJsBadge(options);
+        window.highlightJsBadge();
 
         if (window.location.search == "?print-pdf") {
             var uncounted = document.querySelectorAll("[data-visibility='uncounted']");

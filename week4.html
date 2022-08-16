@@ -131,9 +131,9 @@
 
           <p>An <strong>object</strong> bundles together information and related behavior.</p>
 
-          <p class="smaller">Each list is an object. The information is the sequence of elements, and the behavior are 
+          <p class="smaller">Each list is an object. The information is the sequence of elements, and the behavior are
             methods (like <code>append</code>) plus slicing and bracket notation.</p>
-          
+
           <pre style="font-size:0.55em"><code data-trim data-noescape class="python">
           lyrics = ['Ring', 'ding', 'ding', 'ding', 'dingeringeding!']
           lyrics[0]   # 'Ring'
@@ -223,7 +223,7 @@
               def __init__(self, name):
                   self.name = name
                   self.happiness = 0
-          
+
               def say(self):
                   return f'{self.name} says Wa-pa-pa-pa-pa-pow'
 
@@ -390,7 +390,7 @@
               def __init__(self, name):
                   self.name = name
                   self.happiness = 0
-          
+
               # Define methods
               def say(self):
                   return f'{self.name} says Wa-pa-pa-pa-pa-pow'
@@ -789,10 +789,9 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.1.0/dist/reveal.js"></script>
-    <!-- For code highlighting -->
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.1.0/plugin/highlight/highlight.js"></script>
-    <!-- For code copy-to-clipboard button -->
     <script src="https://cdn.jsdelivr.net/npm/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js-menu@2.1.0/menu.js"></script>
     <script>
         const srcUrlPrefix = "https://cdn.jsdelivr.net/npm/reveal.js@4.1.0/";
         Reveal.initialize({
@@ -802,8 +801,7 @@
             showNotes: false,
             margin: 0.1,
             preloadIframes: true,
-            plugins: [ RevealHighlight ],
-            pdfSeparateFragments: true,
+            plugins: [ RevealHighlight, RevealMenu ],
             transition: "none"
         });
 
@@ -812,7 +810,7 @@
             copyIconContent: "📄",
             checkIconContent: "✅"
         };
-        window.highlightJsBadge(options);
+        window.highlightJsBadge();
 
         if (window.location.search == "?print-pdf") {
             var uncounted = document.querySelectorAll("[data-visibility='uncounted']");
