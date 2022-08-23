@@ -1,0 +1,303 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Testing Lecture</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="https://cs61a.org/assets/css/mono-blue.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto:300,400,500|Work+Sans:400,700">
+    <style>
+    :root {
+      --r-heading-font: "Roboto", sans-serif;
+      --r-heading-color: #0072c1;
+
+      --r-main-font: "Work Sans", sans-serif;
+
+      --r-link-color: #0066cc;
+      --r-link-color-hover: #0066cc;
+    }
+
+    .reveal .controls {
+      color: var(--r-main-color);
+    }
+
+    .reveal .progress {
+      color: var(--r-main-color);
+    }
+
+    .reveal .slides section {
+      text-align: left;
+      font-size: smaller;
+    }
+
+    .reveal pre {
+      background-color: #f5f5f5;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: none;
+    }
+
+    .reveal h3 {
+      margin-bottom: 40px;
+    }
+
+    .reveal section.heading-only {
+      text-align:center;
+      padding-top:20%;
+    }
+
+    .no-code-badge .code-badge {
+        display: none;
+    }
+
+    .code-badge-language {
+        display: none;
+    }
+
+    .python-tutor-link {
+      font-size: smaller;
+    }
+
+    .python-tutor-link:before {
+      content: "";
+      display: block;
+      background: url("http://pythontutor.com/favicon.ico") no-repeat;
+      width: 48px;
+      height: 48px;
+      float: left;
+      margin: 0 6px 0 0;
+    }
+
+    .smaller {
+      font-size: smaller;
+    }
+
+    code {
+      padding: 2px 4px;
+      font-size: 90%;
+      color: #0072c1;
+      background-color: #f9f2f4;
+      border-radius: 4px;
+    }
+
+    p.padded {
+      margin-top: 32px;
+    }
+
+    section .row {
+      display: flex;
+    }
+
+    section .column {
+      flex: 48%;
+      margin: 10px;
+    }
+
+    @media print {
+      .no-print, .no-print * {
+        display: none !important;
+      }
+    }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+
+        <section class="heading-only" style="padding-top:5%">
+          <h1>Testing
+          </h1>
+
+          <div class="no-print" style="text-align: left; margin-top: 100px; font-size: 70%;">
+            Tips for navigating the slides:
+            <ul>
+              <li>Press O or Escape for overview mode.</li>
+              <li>Visit <a href="?print-pdf" target="_blank">this link</a> for a nice printable version</li>
+              <li>Press the copy icon on the upper right of code blocks to copy the code</li>
+            </ul>
+          </div>
+        </section>
+
+
+        <section class="heading-only">
+            <h2>Testing overview</h2>
+        </section>
+
+        <section>
+            <h3>Test types</h3>
+
+            <p>Types of tests:</p>
+            <ul>
+                <li>unit tests: checks small units (e.g. functions)</li>
+                <li>integration tests: checks across parts of the program</li>
+                <li>end-to-end tests: checks user flows through program</li>
+                <li>manual testing: same, but not automated 😢</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Testing pyramid</h3>
+
+            <img src="media/software_testing_pyramid.png" alt="Software testing pyramid"/>
+        </section>
+
+        <section>
+            <h3>Testing philosophies</h3>
+
+            <p>TFD, TDD Write tests first, then write the code.</p>
+
+        </section>
+
+        <section class="heading-only">
+            <h2>Testing in Python</h2>
+        </section>
+
+        <section>
+            <h3>Python testing libraries</h3>
+
+            <ul>
+                <li><a target="_blank" href="https://docs.python.org/3/library/doctest.html">doctest</a>: Built-in, has some limitations
+                <li><a target="_blank" href="https://docs.python.org/3/library/unittest.html">unittest</a>: Built-in, more sophisticated
+                <li><a target="_blank" href="https://docs.pytest.org/">pytest</a>: Popular third-party library
+                <li><a target="_blank" href="https://pypi.org/project/selenium/">selenium</a>: Browser automation library
+            </ul>
+        </section>
+
+        <section>
+            <h3>doctests</h3>
+
+            <p>Doctests mimic a Python console session and serve as a kind of documentation.</p>
+
+            <pre style="font-size:0.8em;"><code data-trim data-noescape class="python">
+            def sum_scores(scores):
+                """ Calculates total score based on list of scores.
+                >>> calculate_scores([])
+                0
+                >>> calculate_score([8, 9, 7])
+                30
+                """
+                total = 0
+                for score in scores:
+                    total += score
+                return total
+            </code></pre>
+
+            <p>Each input/output pair is considered an "example".</p>
+        </section>
+
+
+        <section>
+            <h3>Running doctests</h3>
+
+            <p>Run all tests in a file:</p>
+
+            <pre style="font-size:0.9em;"><code data-trim data-noescape class="python">
+            python -m doctest -v examples/sum_scores.py
+            </code></pre>
+
+            <p class="padded">Run tests for a particular function:</p>
+
+            <pre style="font-size:0.9em;"><code data-trim data-noescape class="python">
+            import doctest
+            doctest.run_docstring_examples(sum_scores, globals(),
+                verbose=True, name="sum_scores")
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>Drawbacks of doctests</h3>
+
+            <p>#1: Doctests don't always distinguish between<br> return values vs. print output:</p>
+
+            <pre style="font-size:0.7em;"><code data-trim data-noescape class="python">
+            def sum_scores(scores):
+                """ Calculates total score based on list of scores.
+                >>> sum_scores([])
+                0
+                >>> sum_scores([8, 9, 7])
+                24
+                """
+                total = 0
+                for score in scores:
+                    total += score
+                <strong>print(total)</strong>
+            </code></pre>
+
+            <p class="fragment">#2: Doctests don't work well for integration tests since
+                it's not clear where an integration test should live.</p>
+
+            <p class="fragment">#3: Doctests take up a lot of space in the code.</p>
+        </section>
+
+
+        <section>
+          <h3>unittest</h3>
+
+          <p>The <a target="_blank" href="https://docs.python.org/3/library/unittest.html">unittest</a> module can be used to write large quantities of tests
+            in files outside of the tested code.
+          </p>
+
+          <pre style="font-size:0.8em;"><code data-trim data-noescape class="python">
+            import unittest
+
+            from sum_scores import sum_scores
+
+            class TestSumScores(unittest.TestCase):
+
+                def test_sum_empty(self):
+                    self.assertEqual(sum_scores([]), 0)
+
+                def test_sum_numbers(self):
+                    self.assertEqual(sum_scores([8, 9, 7]), 24)
+
+            if __name__ == '__main__':
+                unittest.main()
+          </code></pre>
+      </section>
+
+      <section>
+
+      </section>
+
+        <section class="heading-only">
+            <h2>Coverage</h2>
+        </section>
+
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.1.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.1.0/plugin/highlight/highlight.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js-menu@2.1.0/menu.js"></script>
+    <script>
+        const srcUrlPrefix = "https://cdn.jsdelivr.net/npm/reveal.js@4.1.0/";
+        Reveal.initialize({
+            hash: true,
+            center: false,
+            slideNumber: true,
+            showNotes: false,
+            margin: 0.1,
+            preloadIframes: true,
+            plugins: [ RevealHighlight, RevealMenu ],
+            transition: "none"
+        });
+
+        // add HighlightJS-badge (options are optional)
+        window.highlightJsBadge();
+
+        if (window.location.search == "?print-pdf") {
+            var uncounted = document.querySelectorAll("[data-visibility='uncounted']");
+            uncounted.forEach(node => {
+                node.parentNode.classList.add("no-print")
+            })
+        }
+
+    </script>
+    </body>
+</html>
