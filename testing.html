@@ -130,25 +130,33 @@
         <section>
             <h3>Test types</h3>
 
-            <p>Types of tests:</p>
             <ul>
-                <li>unit tests: checks small units (e.g. functions)</li>
-                <li>integration tests: checks across parts of the program</li>
-                <li>end-to-end tests: checks user flows through program</li>
-                <li>manual testing: same, but not automated 😢</li>
+                <li><strong>unit tests</strong>: checks small units (e.g. functions)</li>
+                <li><strong>integration tests</strong>: checks across parts of the program</li>
+                <li><strong>end-to-end tests</strong>: checks user flows through program</li>
+                <li><strong>manual testing</strong>: same, but not automated 😢</li>
             </ul>
         </section>
 
         <section>
             <h3>Testing pyramid</h3>
 
-            <img src="media/software_testing_pyramid.png" alt="Software testing pyramid"/>
+            <img src="media/software_testing_pyramid.png" alt="Software testing pyramid" height="550"/>
         </section>
 
         <section>
             <h3>Testing philosophies</h3>
 
-            <p>TFD, TDD Write tests first, then write the code.</p>
+            <ul>
+              <li><strong>Test-First Development (TFD)</strong>: Write tests first, then write the code.</li>
+              <li><strong>Test-Driven Development (TDD)</strong>: A much stricter version of TFD
+                which involves the "red-green-refactor".</li>
+            </ul>
+
+            <p class="fragment">For most people, the philosophy is that "tests are good", since
+              they give you more confidence in the correctness of your code.
+              Their main drawback is the time required to write and run them.
+            </p>
 
         </section>
 
@@ -158,6 +166,8 @@
 
         <section>
             <h3>Python testing libraries</h3>
+
+            <p>Some of the most common libraries used for testing:</p>
 
             <ul>
                 <li><a target="_blank" href="https://docs.python.org/3/library/doctest.html">doctest</a>: Built-in, has some limitations
@@ -175,6 +185,7 @@
             <pre style="font-size:0.8em;"><code data-trim data-noescape class="python">
             def sum_scores(scores):
                 """ Calculates total score based on list of scores.
+
                 >>> calculate_scores([])
                 0
                 >>> calculate_score([8, 9, 7])
@@ -199,6 +210,7 @@
             python -m doctest -v examples/sum_scores.py
             </code></pre>
 
+            <br>
             <p class="padded">Run tests for a particular function:</p>
 
             <pre style="font-size:0.9em;"><code data-trim data-noescape class="python">
@@ -253,19 +265,254 @@
 
                 def test_sum_numbers(self):
                     self.assertEqual(sum_scores([8, 9, 7]), 24)
-
-            if __name__ == '__main__':
-                unittest.main()
           </code></pre>
+
+          <p>Tests are methods inside a class that use
+            a bunch of special <a target="_blank" href="https://docs.python.org/3/library/unittest.html#unittest.TestCase.debug">assert*</a> methods.</p>
       </section>
 
       <section>
+        <h3>Running unittest tests</h3>
+
+        <p>Run a single file:</p>
+        <pre style="font-size:0.8em;"><code data-trim data-noescape class="python">
+        python3 -m unittest test_sum_scores.py
+        </code></pre>
+
+        <br>
+        <p>Run all <a target="_blank" href="https://docs.python.org/3/library/unittest.html#unittest-test-discovery">discoverable</a> tests:</p>
+        <pre style="font-size:0.8em;"><code data-trim data-noescape class="python">
+        python3 -m unittest
+        </code></pre>
+        <br>
+        <p>For more options, <a target="_blank" href="https://docs.python.org/3/library/unittest.html#command-line-interface">read the docs</a>.</p>
+      </section>
+
+      <section>
+        <h3>pytest</h3>
+
+        <p>The <a target="_blank" href="https://pytest.org">pytest</a> package is a
+          popular third-party alternative for writing tests.</p>
+
+        <pre style="font-size:0.8em;"><code data-trim data-noescape class="python">
+          from sum_scores import sum_scores
+
+          def test_sum_empty():
+            assert sum_scores([]) == 0
+
+          def test_sum_numbers():
+            assert sum_scores([8, 9, 7]) == 24
+        </code></pre>
+
+        <p>Tests are simple functions that use Python's
+          <a target="_blank" href="https://realpython.com/python-assert-statement/">assert statement</a>.
+        </p>
+      </section>
+
+      <section>
+        <h3>Running pytest tests</h3>
+
+        <p>Install the package:</p>
+        <pre style="font-size:0.8em;"><code data-trim data-noescape class="python">
+        pip3 install pytest
+        </code></pre>
+
+        <br>
+        <p>Run a single file:</p>
+        <pre style="font-size:0.8em;"><code data-trim data-noescape class="python">
+        python3 -m pytest sum_scores_test.py
+        </code></pre>
+
+        <br>
+        <p>Run all <a target="_blank" href="https://docs.pytest.org/en/7.1.x/explanation/goodpractices.html#test-discovery">discoverable</a> tests:</p>
+        <pre style="font-size:0.8em;"><code data-trim data-noescape class="python">
+        python3 -m pytest
+        </code></pre>
+        <pre style="font-size:0.8em;"><code data-trim data-noescape class="python">
+        pytest
+        </code></pre>
+      </section>
+
+      <section>
+        <h3>Mocks & monkeypatches</h3>
+
+          <p>If your function uses some functionality
+          that is difficult to replicate in a test environment,
+          you can <strong>monkeypatch</strong> that functionality.</p>
+          <br>
+          <p>This function uses <code>input()</code>:</p>
+          <pre style="font-size:0.8em;"><code data-trim data-noescape class="python">
+            def input_number(message):
+              user_input = int(input(message))
+              return user_input
+          </code></pre>
+
+          <p>So we monkeypatch <code>input()</code> to mock the function:</p>
+          <pre style="font-size:0.8em;"><code data-trim data-noescape class="python">
+          def test_input_int(monkeypatch):
+            monkeypatch.setattr('builtins.input', lambda msg: '5')
+            assert input_number('Enter num') == 5
+          </code></pre>
+      </section>
+
+      <section class="heading-only">
+          <h2>Coverage</h2>
+      </section>
+
+      <section>
+        <h3>Test coverage</h3>
+
+        <p>Test coverage measures the percentage of code that is covered by the tests in a test suite.</p>
+
+        <p>Two ways of measuring coverage:</p>
+          <ul>
+            <li><strong>Line coverage</strong>: Whether a line of code was executed
+            <li><strong>Branch coverage</strong>: Whether a possible code path was followed (i.e. in <code>if</code> conditions)
+        </ul>
 
       </section>
 
-        <section class="heading-only">
-            <h2>Coverage</h2>
-        </section>
+      <section>
+        <h3>coverage.py</h3>
+
+        <p><a href="https://coverage.readthedocs.io/" target="_blank">coverage.py</a> is the most popular
+          tool for measuring coverage in Python programs.</p>
+        <br>
+        <p class="smaller">Example coverage report for a Python web app:</p>
+        <pre style="font-size:0.55em;"><code data-trim data-noescape class="text">
+        tests/test_routes.py .................                                   [ 89%]
+        tests/test_translations.py ..                                            [100%]
+
+        ---------- coverage: platform linux, python 3.9.13-final-0 -----------
+        Name                         Stmts   Miss  Cover   Missing
+        ----------------------------------------------------------
+        src/__init__.py                 17      0   100%
+        src/database.py                  4      0   100%
+        src/models.py                   20      0   100%
+        src/routes.py                   74      0   100%
+        src/translations.py             14      0   100%
+        tests/conftest.py               35      0   100%
+        tests/test_routes.py           110      0   100%
+        tests/test_translations.py      16      0   100%
+        ----------------------------------------------------------
+        TOTAL                          290      0   100%
+        </code></pre>
+
+      </section>
+
+      <section>
+        <h3>Running coverage.py</h3>
+
+        <p>Install the package:</p>
+        <pre style="font-size:0.8em;"><code data-trim data-noescape class="python">
+        pip3 install coverage
+        </code></pre>
+        <br>
+        <p>Run with unittest:</p>
+        <pre style="font-size:0.8em;"><code data-trim data-noescape class="python">
+        coverage run -m unittest test_sum_scores.py
+        </code></pre>
+        <p>Run with pytest:</p>
+        <pre style="font-size:0.8em;"><code data-trim data-noescape class="python">
+        coverage run -m pytest sum_scores_test.py
+        </code></pre>
+        <br>
+        <p>You can also run with <a target="_blank" href="https://coverage.readthedocs.io/en/6.4.4/branch.html">branch coverage</a>.</p>
+      </section>
+
+      <section>
+        <h3>View coverage report</h3>
+
+        <p>For a command-line report:</p>
+        <pre style="font-size:0.8em;"><code data-trim data-noescape class="python">
+        coverage report
+        </code></pre>
+        <br>
+        <p>For an HTML report:</p>
+        <pre style="font-size:0.8em;"><code data-trim data-noescape class="python">
+        coverage html
+        </code></pre>
+        <br>
+        <p>Other reporter types are also available.</p>
+      </section>
+
+      <section class="heading-only">
+        <h2>Testing workflow</h2>
+      </section>
+
+      <section>
+        <h3>When to test?</h3>
+
+        <ul>
+          <li>While developing new changes
+          <li>pre-commit: Before committing code to a repository.
+          <li>Before merging code into the main branch.
+          <li>Before deploying code to production.
+        </ul>
+      </section>
+
+      <section>
+        <h3>pre-commit</h3>
+
+        <p><a target="_blank" href="https://pre-commit.com/">pre-commit</a> is a third-party package
+          for running pre-commit hooks.
+        </p>
+
+        <p>Running all tests before a commit can take a long time, however!</p>
+
+      </section>
+
+      <section>
+        <h3>Continuous integration (CI)</h3>
+
+        <p>Whenever code is pushed to a repo, a CI server can run a suite of actions
+          which can result in <strong style="color:green">success</strong> or <strong style="color:green">failure</strong>.
+          Actions commonly include linting, testing, and coverage.</p>
+
+        <img src="media/screenshot_githubactions.jpg" height="400">
+
+        <p>Popular CI options: Jenkins, TravisCI, CircleCI, Github actions</p>
+      </section>
+
+      <section>
+        <h3>Github actions</h3>
+
+        <p>An example Github actions workflow with pytest:</p>
+
+        <pre style="font-size:0.8em;"><code data-trim data-noescape class="python">
+        name: Python checks
+        on: [push, pull_request]
+
+        jobs:
+          build:
+
+            runs-on: ubuntu-latest
+            steps:
+              - uses: actions/checkout@v3
+              - name: Set up Python 3
+                uses: actions/setup-python@v3
+                with:
+                  python-version: 3.9
+              - name: Install dependencies
+                run: |
+                  python -m pip install --upgrade pip
+                  pip install -r requirements-dev.txt
+              - name: Lint with flake8
+                run: |
+                  flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+                  flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+              - name: Check formatting with black
+                uses: psf/black@stable
+                with:
+                  src: "python/"
+                  options: "--check --verbose"
+              - name: Run unit tests
+                run: |
+                  pytest
+            </code></pre>
+
+            <p>See it in <a target="_blank" href="https://github.com/pamelafox/recursive-visualizations/actions">action</a>.</p>
+      </section>
 
 
         </div>
