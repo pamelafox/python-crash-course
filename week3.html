@@ -304,7 +304,7 @@
           <section>
             <h3>Dictionaries</h3>
             <p>A <code>dict</code> is a mutable mapping of key-value pairs</p>
-            <pre><code data-trim data-noescape>
+            <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
             states = {
               "CA": "California",
               "DE": "Delaware",
@@ -314,15 +314,15 @@
             }
             </code></pre>
             <p>Queries:</p>
-            <pre><code data-trim data-noescape>
+            <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
             >>> len(states)
             <span class="fragment">5</span>
             </code></pre>
-            <pre><code data-trim data-noescape>
+            <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
             >>> "CA" in states
             <span class="fragment">True</span>
             </code></pre>
-            <pre><code data-trim data-noescape>
+            <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
             >>> "ZZ" in states
             <span class="fragment">False</span>
             </code></pre>
@@ -334,7 +334,7 @@
 
           <section>
             <h3>Dictionary selection</h3>
-            <pre><code data-trim data-noescape>
+            <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
             words = {
               "más": "more",
               "otro": "other",
@@ -342,20 +342,20 @@
             }
             </code></pre>
             <p>Select a value:</p>
-            <pre><code data-trim data-noescape>
+            <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
             >>> words["otro"]
             <span class="fragment">'other'</span>
             </code></pre>
-            <pre><code data-trim data-noescape>
+            <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
             >>> first_word = "agua"
             >>> words[first_word]
             <span class="fragment">'water'</span>
             </code></pre>
-            <pre><code data-trim data-noescape>
+            <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
             >>> words["pavo"]
             <span class="fragment">KeyError: pavo</span>
             </code></pre>
-            <pre><code data-trim data-noescape>
+            <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
             >>> words.get("pavo", "🤔")
             <span class="fragment">'🤔'</span>
             </code></pre>
@@ -364,18 +364,18 @@
           <section>
             <h3>Dictionary mutation</h3>
             <p>Create an empty dict:</p>
-            <pre><code data-trim data-noescape>
+            <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
             users = {}
             </code></pre>
-            <p>Add values:</p>
-            <pre><code data-trim data-noescape>
+            <p class="padded">Add values:</p>
+            <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
             users["profpamela"] = "b3stp@ssEvErDontHackMe"
             </code></pre>
-            <p>Change values:</p>
-            <pre><code data-trim data-noescape>
+            <p class="padded">Change values:</p>
+            <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
             users["profpamela"] += "itsLongerSoItsMoreSecure!!"
             </code></pre>
-            <pre><code data-trim data-noescape>
+            <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
             >>> users["profpamela"]
             <span class="fragment">'b3stp@ssEvErDontHackMeitsLongerSoItsMoreSecure!!'</span>
             </code></pre>
@@ -388,7 +388,7 @@
               <li>All keys in a dictionary are distinct (there can only be one value per key)</li>
               <li>The values can be any type, however!</li>
             </ul>
-            <pre><code data-trim data-noescape>
+            <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
             spiders = {
               "smeringopus": {
                 "name": "Pale Daddy Long-leg",
@@ -410,18 +410,18 @@
 
           <section>
             <h3>Dictionary iteration</h3>
-            <pre><code data-trim data-noescape>
+            <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
             insects = {"spiders": 8, "centipedes": 100, "bees": 6}
             for name in insects:
                 print(insects[name])
             </code></pre>
             <p style="font-size:smaller;">...is the same as:</p>
-            <pre><code data-trim data-noescape>
+            <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
             for name in list(insects):
                 print(insects[name])
             </code></pre>
-            <p style="font-size:smaller;">What will be the order of items?</p>
-            <pre class="fragment" data-fragment-index="1"><code data-trim data-noescape>
+            <p class="padded" style="font-size:smaller;">What will be the order of items?</p>
+            <pre style="font-size:0.7em" class="fragment" data-fragment-index="1"><code data-trim data-noescape class="text">
             8 100 6
             </code></pre>
             <p class="fragment" data-fragment-index="1"  style="font-size:smaller;">Keys are iterated over in the order they are first added.</p>
