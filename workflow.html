@@ -1,0 +1,232 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Workflow Lecture</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="https://cs61a.org/assets/css/mono-blue.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto:300,400,500|Work+Sans:400,700">
+    <style>
+    :root {
+      --r-heading-font: "Roboto", sans-serif;
+      --r-heading-color: #0072c1;
+
+      --r-main-font: "Work Sans", sans-serif;
+
+      --r-link-color: #0066cc;
+      --r-link-color-hover: #0066cc;
+    }
+
+    .reveal .controls {
+      color: var(--r-main-color);
+    }
+
+    .reveal .progress {
+      color: var(--r-main-color);
+    }
+
+    .reveal .slides section {
+      text-align: left;
+      font-size: smaller;
+    }
+
+    .reveal pre {
+      background-color: #f5f5f5;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: none;
+    }
+
+    .reveal h3 {
+      margin-bottom: 40px;
+    }
+
+    .reveal section.heading-only {
+      text-align:center;
+      padding-top:20%;
+    }
+
+    .no-code-badge .code-badge {
+        display: none;
+    }
+
+    .code-badge-language {
+        display: none;
+    }
+
+    .python-tutor-link {
+      font-size: smaller;
+    }
+
+    .python-tutor-link:before {
+      content: "";
+      display: block;
+      background: url("http://pythontutor.com/favicon.ico") no-repeat;
+      width: 48px;
+      height: 48px;
+      float: left;
+      margin: 0 6px 0 0;
+    }
+
+    .smaller {
+      font-size: smaller;
+    }
+
+    code {
+      padding: 2px 4px;
+      font-size: 90%;
+      color: #0072c1;
+      background-color: #f9f2f4;
+      border-radius: 4px;
+    }
+
+    p.padded {
+      margin-top: 32px;
+    }
+
+    section .row {
+      display: flex;
+    }
+
+    section .column {
+      flex: 48%;
+      margin: 10px;
+    }
+
+    @media print {
+      .no-print, .no-print * {
+        display: none !important;
+      }
+    }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+
+        <section class="heading-only" style="padding-top:5%">
+          <h1>Python Workflow
+          </h1>
+
+          <div class="no-print" style="text-align: left; margin-top: 100px; font-size: 70%;">
+            Tips for navigating the slides:
+            <ul>
+              <li>Press O or Escape for overview mode.</li>
+              <li>Visit <a href="?print-pdf" target="_blank">this link</a> for a nice printable version</li>
+              <li>Press the copy icon on the upper right of code blocks to copy the code</li>
+            </ul>
+          </div>
+        </section>
+
+
+        <section class="heading-only">
+            <h2>Testing overview</h2>
+        </section>
+
+        <section>
+            <h3>Make project folder</h3>
+
+            <p>Command line:</p>
+            <pre style="font-size:0.45em;"><code data-trim data-noescape class="text">
+            mkdir my-python-project
+            cd my-python-project
+            </code></pre>
+
+        </section>
+
+
+        <section>
+            <h3>Setup version control</h3>
+
+            <p>Init local Git repo:</p>
+            <pre style="font-size:0.45em;"><code data-trim data-noescape class="text">
+            git init
+            </code></pre>
+
+            <p>Create a Github repo:</p>
+
+            <p>Connect Git remote:</p>
+        </section>
+
+        <section>
+            <h3>Start virtual env</h3>
+
+        </section>
+
+        <section>
+            <h3>Install requirements</h3>
+
+        </section>
+
+        <section>
+            <h3>Install dev requirements</h3>
+
+        </section>
+
+        <section>
+            <h3>Write code</h3>
+
+        </section>
+
+        <section>
+            <h3>Run formatter</h3>
+
+        </section>
+
+        <section>
+            <h3>Run linter</h3>
+
+        </section>
+
+        <section>
+            <h3>Run tests</h3>
+
+        </section>
+
+        <section>
+            <h3>Setup precommit</h3>
+
+        </section>
+
+        <section>
+            <h3>Setup Github action</h3>
+
+        </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.1.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.1.0/plugin/highlight/highlight.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js-menu@2.1.0/menu.js"></script>
+    <script>
+        const srcUrlPrefix = "https://cdn.jsdelivr.net/npm/reveal.js@4.1.0/";
+        Reveal.initialize({
+            hash: true,
+            center: false,
+            slideNumber: true,
+            showNotes: false,
+            margin: 0.1,
+            preloadIframes: true,
+            plugins: [ RevealHighlight, RevealMenu ],
+            transition: "none"
+        });
+
+        // add HighlightJS-badge (options are optional)
+        window.highlightJsBadge();
+
+        if (window.location.search == "?print-pdf") {
+            var uncounted = document.querySelectorAll("[data-visibility='uncounted']");
+            uncounted.forEach(node => {
+                node.parentNode.classList.add("no-print")
+            })
+        }
+
+    </script>
+    </body>
+</html>
