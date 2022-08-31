@@ -152,13 +152,21 @@
             <pre style="font-size:0.9em;"><code data-trim data-noescape class="bash">
             git init
             </code></pre>
-            <p class="padded">Create a Github repo:</p>
-            <p><a target="_blank" href="https://github.com/new">https://github.com/new</a></p>
-            <p class="padded">Connect Git remote:</p>
+            <div class="fragment">
+            <p class="padded">Create a <a target="_blank" href="https://github.com/new">Github repo</a> and connect it:</p>
             <pre style="font-size:0.9em;"><code data-trim data-noescape class="bash">
             git remote add origin https://github.com/user/repo.git
             </code></pre>
+            </div>
+
+            <div class="fragment">
+            <p class="padded">Create empty <code>.gitignore</code> file:</p>
+            <pre style="font-size:0.9em;"><code data-trim data-noescape class="bash">
+            touch .gitignore
+            </code></pre>
             <br>
+            </div>
+
             <p><a target="_blank" href="https://docs.github.com/en/get-started/getting-started-with-git">More on Git/Github</a></p>
 
         </section>
@@ -172,17 +180,22 @@
             </code></pre>
 
             <p>That creates a <a target="_blank" href="https://docs.python.org/3/library/venv.html">virtual environment</a> in the <code>.venv</code> folder.
-            That's where all your dependencies for this project will be installed.
+            Project dependencies will be installed there.
             </p>
 
+            <div class="fragment">
             <p class="padded">Start virtual environment:</p>
             <pre style="font-size:0.9em;"><code data-trim data-noescape class="bash">
             source .venv/bin/activate
             </code></pre>
+            </div>
 
-            <br>
-            <p>Tip: Now's a good time to create a <code>.gitignore</code> file and add
-                <code>.venv</code> to it.</p>
+            <div class="fragment">
+            <p class="padded">Add to <code>.gitignore</code>:</p>
+            <pre style="font-size:0.9em;"><code data-trim data-noescape class="bash">
+            .venv
+            </code></pre>
+            </div>
         </section>
 
         <section>
@@ -191,7 +204,7 @@
             <p>Your project may depend on <a target="_blank" href="https://packaging.python.org/en/latest/tutorials/installing-packages/">packages</a>.
                 For a repeatable workflow, declare those in a <code>requirements.txt</code> file.</p>
 
-            <p>Add to requirements.txt:</p>
+            <p>Create a <code>requirements.txt</code> file:</p>
             <pre style="font-size:0.7em;"><code data-trim data-noescape class="text">
             numpy
             opencv-python
@@ -200,10 +213,12 @@
             </code></pre>
             <p class="smaller">*You can also specify versions of those packages if needed.</p>
 
+            <div class="fragment">
             <p class="padded">Then install the requirements:</p>
             <pre style="font-size:0.7em;"><code data-trim data-noescape class="text">
             pip install -r requirements.txt
             </code></pre>
+            </div>
 
             <p class="padded">Find more packages on <a target="_blank" href="https://pypi.org/">pypi.org</a>.
         </section>
@@ -212,13 +227,34 @@
             <h2>Code organization</h2>
         </section>
 
+
+        <section>
+            <h3>Project layout</h3>
+
+            <p>A common way to organize a project is to have one main module,
+                additional modules with specific functionality, and a tests folder.</p>
+
+            <ul>
+                <li><a target="_blank" href="https://raw.githubusercontent.com/pamelafox/my-python-project-test2/main/main.py">main.py</a></li>
+                <li><a target="_blank" href="https://raw.githubusercontent.com/pamelafox/my-python-project-test2/main/image_helpers.py">image_helpers.py</a></li>
+                <li><a target="_blank" href="https://raw.githubusercontent.com/pamelafox/my-python-project-test2/main/image_filters.py">image_filters.py</a></li>
+                <li>tests/
+                    <ul>
+                        <li><a target="_blank" href="https://raw.githubusercontent.com/pamelafox/my-python-project-test2/main/tests/image_filters_test.py">image_filters_test.py</a></li>
+                        <li><a target="_blank" href="https://raw.githubusercontent.com/pamelafox/my-python-project-test2/main/tests/image_helpers_test.py">image_helpers_test.py</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+
         <section>
             <h3>Python modules</h3>
 
             <p>A <a target="_blank" href="https://docs.python.org/3/tutorial/modules.html">Python module</a> is
                 a file typically containing function or class definitions.</p>
 
-            <p>image_helpers.py:</p>
+            <p><code>image_helpers.py</code>:</p>
             <pre style="font-size:0.35em"><code data-trim data-noescape class="python">
             import copy
 
@@ -261,6 +297,7 @@
             image_helpers.render_pixels(pixel_data)
             </code></pre>
 
+            <div class="fragment">
             <p class="padded">Importing specific names:</p>
             <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
             from image_helpers import get_image_pixels, render_pixels
@@ -268,7 +305,9 @@
             pixel_data = get_image_pixels(url)
             render_pixels(pixel_data)
             </code></pre>
+            </div>
 
+            <div class="fragment">
             <p class="padded">Importing all names:</p>
             <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
             from image_helpers import *
@@ -276,35 +315,49 @@
             pixel_data = get_image_pixels(url)
             render_pixels(pixel_data)
             </code></pre>
+            </div>
         </section>
 
         <section>
             <h3>Importing with alias</h3>
 
-            <p>I don't recommend aliasing a class or function name:</p>
+            <p>It's possible to assign an alias to imports:</p>
+            <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
+            import image_helpers as ih
+
+            pixel_data = ih.get_image_pixels(url)
+            </code></pre>
+
+            <div class="fragment">
+            <p class="padded">I don't recommend aliasing a class or function name:</p>
             <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
             from image_helpers import get_image_pixels as gip
 
             pixel_data = gip(url)  # 🤮
             </code></pre>
+            </div>
 
-            <p class="padded">But aliasing a whole module is sometimes okay (and is common in data science):</p>
+            <div class="fragment">
+            <p class="padded">But aliasing a package is okay if it's the convention:</p>
             <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
             import numpy as np
 
             pixel_data = np.asarray(image2).tolist()
             </code></pre>
+            </div>
         </section>
 
         <section>
             <h3>Running a module</h3>
 
-            <p>This command runs a module:</p>
+            <p>This command runs a code module:</p>
             <pre style="font-size:1.0em"><code data-trim data-noescape class="python">
-            python image_helpers.py
+            python main.py
             </code></pre>
+        </section>
 
-            <p>When run like that, Python sets a global variable <code>__name__</code>
+        <section data-visibility="hidden">
+            <p class="padded">When run like that, Python sets a global variable <code>__name__</code>
                 to "main". That means you often see code at the bottom of modules like this:</p>
 
             <pre style="font-size:1.0em"><code data-trim data-noescape class="python">
@@ -316,22 +369,6 @@
                 but only when the module is run directly.</p>
         </section>
 
-        <section>
-            <h3>Code organization</h3>
-
-            <p>A common way to organize your code is to have one main module,
-                additional modules with specific functionality, and a tests folder.</p>
-
-            <pre style="font-size:1.0em"><code data-trim data-noescape class="python">
-            main.py
-            image_helpers.py
-            image_filters.py
-            tests/
-               image_helpers_test.py
-               image_filters_test.py
-            </code></pre>
-        </section>
-
         <section class="heading-only">
             <h2>Tool setup</h2>
         </section>
@@ -341,11 +378,10 @@
 
             <p>Projects often distinguish between "prod" requirements
                 (needed for the production deploy)
-                and "dev" requirements (needed for local development only).
-                Declare dev packages in <code>requirements-dev.txt</code>.</p>
+                and "dev" requirements (needed for local development only).</p>
 
-            <p>Add to requirements-dev.txt:</p>
-            <pre style="font-size:0.8em;"><code data-trim data-noescape class="text">
+            <p>Add to <code>requirements-dev.txt</code>:</p>
+            <pre style="font-size:0.7em;"><code data-trim data-noescape class="text">
             -r requirements.txt
             black==22.3.0
             pytest==7.1.2
@@ -363,44 +399,12 @@
         </section>
 
         <section>
-            <h3>Tool configuration</h3>
-
-            <p>Many tools can be configured in the <code>pyproject.toml</code> file.</p>
-
-            <p>Create that file in your root folder.</p>
-        </section>
-
-        <section>
-            <h3>Run formatter</h3>
-
-            <p>The most popular formatter is <a target="_blank" href="https://black.readthedocs.io/en/stable/">black</a>,
-                which is PEP 8 compliant and fairly opinionated.</p>
-
-            <p>Add options to the pyproject.toml file:</p>
-            <pre style="font-size:0.8em;"><code data-trim data-noescape class="yaml">
-            [tool.black]
-            line-length = 100
-            target-version = ['py39']
-            </code></pre>
-
-            <p class="padded">Run black on a file or folder:</p>
-            <pre style="font-size:0.8em;"><code data-trim data-noescape class="bash">
-            black --verbose main.py
-            </code></pre>
-
-            <p class="padded">⚠️ By default, black will rewrite the files. Use <code>--check</code>
-                option if you just want to be notified of issues.</p>
-
-        </section>
-
-        <section>
             <h3>Run linter</h3>
 
             <p>The most common linter is <a target="_blank" href="https://pypi.org/project/flake8/">flake8</a>,
-                which will identify code style issues as well as possible bugs.
-                It cannot currently be configured in pyproject.toml.</p>
+                which will identify code style issues as well as possible bugs.</p>
 
-            <p>Add a to a <code>.flake8</code> file in the root:</p>
+            <p>Add a <code>.flake8</code> file in the root:</p>
 
             <pre style="font-size:0.8em;"><code data-trim data-noescape class="yaml">
             [flake8]
@@ -420,6 +424,38 @@
 
         </section>
 
+
+        <section>
+            <h3>Tool configuration</h3>
+
+            <p>Many tools can be configured in the <code>pyproject.toml</code> file.</p>
+
+            <p>Create that file in your root folder.</p>
+        </section>
+
+        <section>
+            <h3>Run formatter</h3>
+
+            <p>The most popular formatter is <a target="_blank" href="https://black.readthedocs.io/en/stable/">black</a>,
+                which is PEP 8 compliant and fairly opinionated.</p>
+
+            <p>Add options to <code>pyproject.toml</code>:</p>
+            <pre style="font-size:0.8em;"><code data-trim data-noescape class="yaml">
+            [tool.black]
+            line-length = 100
+            target-version = ['py39']
+            </code></pre>
+
+            <p class="padded">Run black on a file or folder:</p>
+            <pre style="font-size:0.8em;"><code data-trim data-noescape class="bash">
+            black --verbose . tests/
+            </code></pre>
+
+            <p class="padded">⚠️ By default, black will rewrite the files. Use <code>--check</code>
+                option if you just want to be notified of issues.</p>
+
+        </section>
+
         <section>
             <h3>Run tests</h3>
 
@@ -427,7 +463,7 @@
                 but another popular framework is <a target="_blank" href="">pytest</a>.
             </p>
 
-            <p>Add options to the pyproject.toml file:</p>
+            <p>Add options to <code>pyproject.toml</code>:</p>
             <pre style="font-size:0.8em;"><code data-trim data-noescape class="yaml">
             [tool.pytest.ini_options]
             addopts = "-ra --cov"
@@ -471,9 +507,9 @@
                     args: ['--config=.flake8']
             </code></pre>
 
-            <p>Do a test run before committing:</p>
+            <p>Install the hooks:</p>
             <pre style="font-size:0.8em;"><code data-trim data-noescape class="bash">
-            pre-commit run --all-files
+            pre-commit install
             </code></pre>
         </section>
 
@@ -481,7 +517,7 @@
             <h3>Setup Github action</h3>
 
             <p>It's also helpful to use Github actions for another set of checks before
-                merging code into master.</p>
+                merging code into main.</p>
 
             <p>Create a <code>.github/workflows/python.yaml</code> file:</p>
             <pre style="font-size:0.35em;"><code data-trim data-noescape class="yaml">
