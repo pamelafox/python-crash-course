@@ -85,7 +85,7 @@
     }
 
     p.padded {
-      margin-top: 32px;
+      margin-top: 48px;
     }
 
     section .row {
@@ -124,18 +124,24 @@
 
 
         <section class="heading-only">
-            <h2>Testing overview</h2>
+            <h2>Folder setup</h2>
         </section>
 
         <section>
             <h3>Make project folder</h3>
 
-            <p>Command line:</p>
-            <pre style="font-size:0.45em;"><code data-trim data-noescape class="text">
+            <p>Make directory:</p>
+            <pre style="font-size:0.9em;"><code data-trim data-noescape class="bash">
             mkdir my-python-project
+            </code></pre>
+            <br>
+            <p>Navigate to new directory:</p>
+            <pre style="font-size:0.9em;"><code data-trim data-noescape class="bash">
             cd my-python-project
             </code></pre>
 
+            <br>
+            <p>Learn more about command-line and <a target="_blank" href="https://missing.csail.mit.edu/2020/course-shell/#topic-1-the-shell">the shell</a>.</p>
         </section>
 
 
@@ -143,58 +149,370 @@
             <h3>Setup version control</h3>
 
             <p>Init local Git repo:</p>
-            <pre style="font-size:0.45em;"><code data-trim data-noescape class="text">
+            <pre style="font-size:0.9em;"><code data-trim data-noescape class="bash">
             git init
             </code></pre>
+            <p class="padded">Create a Github repo:</p>
+            <p><a target="_blank" href="https://github.com/new">https://github.com/new</a></p>
+            <p class="padded">Connect Git remote:</p>
+            <pre style="font-size:0.9em;"><code data-trim data-noescape class="bash">
+            git remote add origin https://github.com/user/repo.git
+            </code></pre>
+            <br>
+            <p><a target="_blank" href="https://docs.github.com/en/get-started/getting-started-with-git">More on Git/Github</a></p>
 
-            <p>Create a Github repo:</p>
-
-            <p>Connect Git remote:</p>
         </section>
 
         <section>
-            <h3>Start virtual env</h3>
+            <h3>Setup virtual env</h3>
 
+            <p>Create virtual environment:</p>
+            <pre style="font-size:0.9em;"><code data-trim data-noescape class="bash">
+            python3 -m venv .venv
+            </code></pre>
+
+            <p>That creates a <a target="_blank" href="https://docs.python.org/3/library/venv.html">virtual environment</a> in the <code>.venv</code> folder.
+            That's where all your dependencies for this project will be installed.
+            </p>
+
+            <p class="padded">Start virtual environment:</p>
+            <pre style="font-size:0.9em;"><code data-trim data-noescape class="bash">
+            source .venv/bin/activate
+            </code></pre>
+
+            <br>
+            <p>Tip: Now's a good time to create a <code>.gitignore</code> file and add
+                <code>.venv</code> to it.</p>
         </section>
 
         <section>
             <h3>Install requirements</h3>
 
+            <p>Your project may depend on <a target="_blank" href="https://packaging.python.org/en/latest/tutorials/installing-packages/">packages</a>.
+                For a repeatable workflow, declare those in a <code>requirements.txt</code> file.</p>
+
+            <p>Add to requirements.txt:</p>
+            <pre style="font-size:0.7em;"><code data-trim data-noescape class="text">
+            numpy
+            opencv-python
+            scikit-image
+            matplotlib
+            </code></pre>
+            <p class="smaller">*You can also specify versions of those packages if needed.</p>
+
+            <p class="padded">Then install the requirements:</p>
+            <pre style="font-size:0.7em;"><code data-trim data-noescape class="text">
+            pip install -r requirements.txt
+            </code></pre>
+
+            <p class="padded">Find more packages on <a target="_blank" href="https://pypi.org/">pypi.org</a>.
+        </section>
+
+        <section class="heading-only">
+            <h2>Code organization</h2>
         </section>
 
         <section>
-            <h3>Install dev requirements</h3>
+            <h3>Python modules</h3>
+
+            <p>A <a target="_blank" href="https://docs.python.org/3/tutorial/modules.html">Python module</a> is
+                a file typically containing function or class definitions.</p>
+
+            <p>image_helpers.py:</p>
+            <pre style="font-size:0.35em"><code data-trim data-noescape class="python">
+            import copy
+
+            import numpy
+            import cv2
+            from skimage import io
+            import matplotlib.pyplot as plt
+            import matplotlib.image as mpimg
+
+            def get_image_pixels(image_url):
+                """ Returns a nested list of the pixels for the image located at image_url"""
+                image = io.imread(image_url)
+                image2 = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+                pixel_data = numpy.asarray(image2).tolist()
+                for row in pixel_data:
+                for pixel in row:
+                    pixel[0], pixel[2] = pixel[2], pixel[0]
+                return pixel_data
+
+            def render_pixels(pixel_data):
+                """ Displays the image represented by pixel_data"""
+                transformed_data = copy.deepcopy(pixel_data)
+                for row in transformed_data:
+                for pixel in row:
+                    pixel[0], pixel[2] = pixel[2], pixel[0]
+                cv2.imwrite('rendered.jpg', numpy.array(transformed_data))
+                image = mpimg.imread('rendered.jpg')
+                plt.imshow(image)
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>Importing</h3>
+
+            <p>Importing a whole module:</p>
+            <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
+            import image_helpers
+
+            pixel_data = image_helpers.get_image_pixels(url)
+            image_helpers.render_pixels(pixel_data)
+            </code></pre>
+
+            <p class="padded">Importing specific names:</p>
+            <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
+            from image_helpers import get_image_pixels, render_pixels
+
+            pixel_data = get_image_pixels(url)
+            render_pixels(pixel_data)
+            </code></pre>
+
+            <p class="padded">Importing all names:</p>
+            <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
+            from image_helpers import *
+
+            pixel_data = get_image_pixels(url)
+            render_pixels(pixel_data)
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>Importing with alias</h3>
+
+            <p>I don't recommend aliasing a class or function name:</p>
+            <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
+            from image_helpers import get_image_pixels as gip
+
+            pixel_data = gip(url)  # 🤮
+            </code></pre>
+
+            <p class="padded">But aliasing a whole module is sometimes okay (and is common in data science):</p>
+            <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
+            import numpy as np
+
+            pixel_data = np.asarray(image2).tolist()
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>Running a module</h3>
+
+            <p>This command runs a module:</p>
+            <pre style="font-size:1.0em"><code data-trim data-noescape class="python">
+            python image_helpers.py
+            </code></pre>
+
+            <p>When run like that, Python sets a global variable <code>__name__</code>
+                to "main". That means you often see code at the bottom of modules like this:</p>
+
+            <pre style="font-size:1.0em"><code data-trim data-noescape class="python">
+            if __name__ == "__main__":
+                # use the code in the module somehow
+            </code></pre>
+
+            <p>The code inside that condition will be executed as well,
+                but only when the module is run directly.</p>
+        </section>
+
+        <section>
+            <h3>Code organization</h3>
+
+            <p>A common way to organize your code is to have one main module,
+                additional modules with specific functionality, and a tests folder.</p>
+
+            <pre style="font-size:1.0em"><code data-trim data-noescape class="python">
+            main.py
+            image_helpers.py
+            image_filters.py
+            tests/
+               image_helpers_test.py
+               image_filters_test.py
+            </code></pre>
+        </section>
+
+        <section class="heading-only">
+            <h2>Tool setup</h2>
+        </section>
+
+        <section>
+            <h3>Dev requirements</h3>
+
+            <p>Projects often distinguish between "prod" requirements
+                (needed for the production deploy)
+                and "dev" requirements (needed for local development only).
+                Declare dev packages in <code>requirements-dev.txt</code>.</p>
+
+            <p>Add to requirements-dev.txt:</p>
+            <pre style="font-size:0.8em;"><code data-trim data-noescape class="text">
+            -r requirements.txt
+            black==22.3.0
+            pytest==7.1.2
+            coverage==6.4.1
+            pytest-cov==3.0.0
+            pre-commit
+            flake8
+            </code></pre>
+
+            <p class="padded">Then install the requirements:</p>
+            <pre style="font-size:0.8em;"><code data-trim data-noescape class="text">
+            pip install -r requirements-dev.txt
+            </code></pre>
 
         </section>
 
         <section>
-            <h3>Write code</h3>
+            <h3>Tool configuration</h3>
 
+            <p>Many tools can be configured in the <code>pyproject.toml</code> file.</p>
+
+            <p>Create that file in your root folder.</p>
         </section>
 
         <section>
             <h3>Run formatter</h3>
+
+            <p>The most popular formatter is <a target="_blank" href="https://black.readthedocs.io/en/stable/">black</a>,
+                which is PEP 8 compliant and fairly opinionated.</p>
+
+            <p>Add options to the pyproject.toml file:</p>
+            <pre style="font-size:0.8em;"><code data-trim data-noescape class="yaml">
+            [tool.black]
+            line-length = 100
+            target-version = ['py39']
+            </code></pre>
+
+            <p class="padded">Run black on a file or folder:</p>
+            <pre style="font-size:0.8em;"><code data-trim data-noescape class="bash">
+            black --verbose main.py
+            </code></pre>
+
+            <p class="padded">⚠️ By default, black will rewrite the files. Use <code>--check</code>
+                option if you just want to be notified of issues.</p>
 
         </section>
 
         <section>
             <h3>Run linter</h3>
 
+            <p>The most common linter is <a target="_blank" href="https://pypi.org/project/flake8/">flake8</a>,
+                which will identify code style issues as well as possible bugs.
+                It cannot currently be configured in pyproject.toml.</p>
+
+            <p>Add a to a <code>.flake8</code> file in the root:</p>
+
+            <pre style="font-size:0.8em;"><code data-trim data-noescape class="yaml">
+            [flake8]
+            ignore = D203
+            max-complexity = 10
+            max-line-length = 100
+            exclude = .venv
+            </code></pre>
+
+            <p class="padded">Run flake8 on a file or folder:</p>
+            <pre style="font-size:0.7em;"><code data-trim data-noescape class="bash">
+            # Error out if there are Python syntax errors or undefined names
+            flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+            # Show warnings for other (stylistic) issues
+            flake8 . --count --exit-zero  --statistics
+            </code></pre>
+
         </section>
 
         <section>
             <h3>Run tests</h3>
+
+            <p>The built-in testing framework for Python is <a target="_blank" href="">unittest</a>,
+                but another popular framework is <a target="_blank" href="">pytest</a>.
+            </p>
+
+            <p>Add options to the pyproject.toml file:</p>
+            <pre style="font-size:0.8em;"><code data-trim data-noescape class="yaml">
+            [tool.pytest.ini_options]
+            addopts = "-ra --cov"
+            testpaths = ["tests"]
+            pythonpath = ['.']
+            </code></pre>
+
+            <p class="padded">Run tests:</p>
+
+            <pre style="font-size:0.8em;"><code data-trim data-noescape class="bash">
+            pytest
+            </code></pre>
 
         </section>
 
         <section>
             <h3>Setup precommit</h3>
 
+            <p>It's easy to forget to run a formatter or linter.
+                Use <a target="_black" href="https://pre-commit.com/">pre-commit</a> to make sure they're always run before a commit.</p>
+
+            <p>Create a <code>.pre-commit-config.yaml</code> file:</p>
+            <pre style="font-size:0.35em;"><code data-trim data-noescape class="yaml">
+            repos:
+            -   repo: https://github.com/pre-commit/pre-commit-hooks
+                rev: v2.3.0
+                hooks:
+                -   id: check-yaml
+                -   id: end-of-file-fixer
+                -   id: trailing-whitespace
+            -   repo: https://github.com/psf/black
+                rev: 22.3.0
+                hooks:
+                -   id: black
+                    args: ['--config=./pyproject.toml']
+            -   repo: https://gitlab.com/pycqa/flake8
+                rev: 4.0.1
+                hooks:
+                -   id: flake8
+                    exclude: '.venv/'
+                    args: ['--config=.flake8']
+            </code></pre>
+
+            <p>Do a test run before committing:</p>
+            <pre style="font-size:0.8em;"><code data-trim data-noescape class="bash">
+            pre-commit run --all-files
+            </code></pre>
         </section>
 
         <section>
             <h3>Setup Github action</h3>
 
+            <p>It's also helpful to use Github actions for another set of checks before
+                merging code into master.</p>
+
+            <p>Create a <code>.github/workflows/python.yaml</code> file:</p>
+            <pre style="font-size:0.35em;"><code data-trim data-noescape class="yaml">
+                name: Python checks
+                on: [push, pull_request]
+
+                jobs:
+                  build:
+                    runs-on: ubuntu-latest
+                    steps:
+                        - uses: actions/checkout@v3
+                        - name: Set up Python 3
+                          uses: actions/setup-python@v3
+                          with:
+                            python-version: 3.9
+                        - name: Install dependencies
+                          run: |
+                            python -m pip install --upgrade pip
+                            pip install -r requirements-dev.txt
+                        - name: Lint with flake8
+                          run: |
+                            flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+                        - name: Check formatting with black
+                          uses: psf/black@stable
+                          with:
+                            src: ". tests/"
+                            options: "--check --verbose"
+                        - name: Run unit tests
+                          run: |
+                            pytest
+            </code></pre>
         </section>
 
         </div>
