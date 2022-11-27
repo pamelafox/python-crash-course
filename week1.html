@@ -124,7 +124,90 @@
 
 
         <section class="heading-only">
-            <h2>Values</h2>
+            <h2>Python setup</h2>
+        </section>
+
+        <section>
+            <h3>Where to program Python?</h3>
+
+            <p>You can complete our coursework entirely in the browser:</p>
+            <p>
+                <img src="media/screenshot_exercise.png" alt="Screenshot of CoRise exercise" height="200" style="float:right">
+                <strong>Exercises</strong> can be coded in embedded Python widgets on CoRise.com<br>
+            </p>
+            <br style="clear:right">
+            <p>
+                <img src="media/screenshot_colab.png" alt="Screenshot of Google CoLab" height="150" style="float:left; border: 1px solid #ccc; margin-right: 25px;">
+                <strong>Projects</strong> will be coded in Google CoLab (Browser-based Jupyter notebooks)
+            </p>
+            <br>
+            <p>...but you may still want a place to play with Python.</p>
+        </section>
+
+        <section>
+            <h3>Python on your desktop</h3>
+
+            <p>Download the latest Python from
+                <a target="_blank" href="https://www.python.org/downloads/">python.org/downloads</a>.
+            </p>
+
+            <p class="padded">Start a Python REPL:</p>
+
+            <pre style="font-size:0.9em"><code data-trim data-noescape class="shell">
+            $ python3
+            Python 3.11.0 (v3.11.0:deaf509e8f, Oct 24 2022, 14:43:23)
+            >>> 2 + 2
+            4
+            </code></pre>
+
+            <p class="padded">Run a Python program:</p>
+
+            <pre style="font-size:0.9em"><code data-trim data-noescape class="shell">
+            $ python3 file.py
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>Python code editors</h3>
+
+            <p>A code editor is a text editor with support for syntax highlighting, linting, refactoring,
+                and other helpful tools.
+            </p>
+
+            <p class="padded">The two most popular editors for Python:</p>
+            <ul>
+                <li>
+                    <a target="_blank" href="https://code.visualstudio.com/">
+                    Microsoft VS Code
+                    </a>
+                    <br>
+                    Recommended extensions:
+                    <a target="_blank" href="https://marketplace.visualstudio.com/items?itemName=ms-python.python">
+                    MS Python</a>,
+                    <a target="_blank" href="https://marketplace.visualstudio.com/items?itemName=NoahSyn10.pydoctestbtn">
+                        Python Doctest
+                    </a>
+                    <p>Learn more about using <a target="_blank" href="https://code.visualstudio.com/docs/languages/python">Python in VS Code</a>
+                    </p>
+                <li><a target="_blank" href="https://www.jetbrains.com/pycharm/">JetBrains PyCharm</a>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Python in the browser</h3>
+
+            <ul>
+                <li><a href="https://replit.com/new/python3" target="_blank">Repl.it</a>: An online IDE
+                <li><a href="https://github.com/pamelafox/python-3.11-playground" target="_blank">Github Codespaces</a>: A way to run any repo in an online VS Code.
+            </ul>
+        </section>
+
+        <section class="heading-only">
+            <h2>Python Building Blocks
+                <br>
+                (Values & Expressions)
+            </h2>
+
         </section>
 
       <section>
@@ -155,10 +238,6 @@
 
       </section>
 
-      <section class="heading-only">
-          <h2>Expressions</h2>
-      </section>
-
       <section>
           <h3>Expressions <span class="smaller">(with operators)</span></h3>
 
@@ -181,10 +260,6 @@
           <pre style="font-size:0.9em"><code data-trim data-noescape class="python">
           2 ** 100
           </code></pre>
-
-          <p>Try in a Python REPL (console).<br>
-          <a href="https://replit.com/new/python3" target="_blank">https://replit.com/new/python3</a>
-          </p>
       </section>
 
       <section>
@@ -213,8 +288,9 @@
       </section>
 
       <section>
-          <img src="https://girldevelopit.github.io/gdi-python/images/name_value.png" alt="Name bound to value" width="200" style="float:right;">
           <h3>Variables</h3>
+
+          <img src="media/name_value.png" alt="Name bound to value" width="200" style="float:right;">
 
           <p>A variable binds a name to a value.
           </p>
@@ -279,16 +355,6 @@
           </p>
       </section>
 
-      <section>
-          <h3>Fun with text processing</h3>
-
-          <p>Code:</p>
-          <a target="_blank" href="https://replit.com/@pamelafox/TextProcessing-Corise">https://replit.com/@pamelafox/TextProcessing-Corise</a>
-
-          <p>Join in at:</p>
-          <a target="_blank" href="https://replit.com/join/huqhkrlocq-pamelafox">https://replit.com/join/huqhkrlocq-pamelafox</a>
-
-      </section>
 
         <section class="heading-only">
           <h2>Functions</h2>
@@ -304,15 +370,16 @@
             <p>We've already used functions:</p>
 
             <pre style="font-size:1.0em"><code data-trim data-noescape class="python">
+            abs(-1)
+            pow(2, 10)
             add(18, 69)
             mul(60, sub(5, 4))
-            uppercase("stop yelling")
             </code></pre>
 
             <div class="fragment">
             <p>A function takes in an input (the <strong>arguments</strong>) and returns an output (the <strong>return value</strong>).</p>
 
-            <p style="font-family:monospace">"stop yelling" → <span style="display:inline-block; padding: 10px; border-radius: 2px; background: rgb(195, 212, 233)">uppercase</span> → "STOP YELLING"
+            <p style="font-family:monospace">2, 10 → <span style="display:inline-block; padding: 10px; border-radius: 2px; background: rgb(195, 212, 233)">pow</span> → 1024
             </p>
             </div>
         </section>
