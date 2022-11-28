@@ -384,8 +384,48 @@
             </div>
         </section>
 
+
         <section>
-            <h3>Defining functions</h3>
+            <h3>Why functions?</h3>
+
+            <p>Consider this function-less code:</p>
+            <pre style="font-size:0.8em"><code data-trim data-noescape class="python">
+            greeting1 = "Hello, Jackson, how are you?";
+            greeting2 = "Hello, Dr. Biden, how are you?";
+            greeting3 = "Hello, Stranger, how are you?";
+            </code></pre>
+
+            <p>Functions help when code has <strong>repetition</strong>.</p>
+
+            <p>Function parameters/arguments help when repetitive code has <strong>variation</strong>.</p>
+        </section>
+
+        <section>
+            <h3>Building a function</h3>
+
+            <p>First identify the repetitive parts:</p>
+
+            <pre style="font-size:0.8em"><code data-trim data-noescape class="python">
+            def say_greeting():
+                return "Hello, how are you?"
+            </code></pre>
+
+            <p>Then use parameters for the parts that vary:</p>
+            <pre style="font-size:0.8em"><code data-trim data-noescape class="python">
+            def say_greeting(name):
+                return "Hello, " + name + ", how are you?"
+            </code></pre>
+
+            <p>Finally, test it with different arguments:</p>
+            <pre style="font-size:0.8em"><code data-trim data-noescape class="python">
+            say_greeting("Jackson");
+            say_greeting("Dr. Biden")
+            say_greeting("Stranger")
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>Function definition</h3>
 
             <p>The most common way to define functions is Python is the <code>def</code> statement.</p>
 
