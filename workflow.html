@@ -388,7 +388,7 @@
             coverage==6.4.1
             pytest-cov==3.0.0
             pre-commit
-            flake8
+            ruff
             </code></pre>
 
             <p class="padded">Then install the requirements:</p>
@@ -399,39 +399,41 @@
         </section>
 
         <section>
-            <h3>Run linter</h3>
-
-            <p>The most common linter is <a target="_blank" href="https://pypi.org/project/flake8/">flake8</a>,
-                which will identify code style issues as well as possible bugs.</p>
-
-            <p>Add a <code>.flake8</code> file in the root:</p>
-
-            <pre style="font-size:0.8em;"><code data-trim data-noescape class="yaml">
-            [flake8]
-            ignore = D203
-            max-complexity = 10
-            max-line-length = 100
-            exclude = .venv
-            </code></pre>
-
-            <p class="padded">Run flake8 on a file or folder:</p>
-            <pre style="font-size:0.7em;"><code data-trim data-noescape class="bash">
-            # Error out if there are Python syntax errors or undefined names
-            flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-            # Show warnings for other (stylistic) issues
-            flake8 . --count --exit-zero  --statistics
-            </code></pre>
-
-        </section>
-
-
-        <section>
             <h3>Tool configuration</h3>
 
             <p>Many tools can be configured in the <code>pyproject.toml</code> file.</p>
 
             <p>Create that file in your root folder.</p>
         </section>
+
+
+        <section>
+          <h3>Run linter</h3>
+
+          <p>A linter identifies code style issues as well as possible bugs.
+            The most common linter is <a target="_blank" href="https://pypi.org/project/flake8/">flake8</a>
+            but there's a new faster linter called <a target="_blank" href="https://pypi.org/project/ruff/">ruff</a>.
+          </p>
+
+          <p>Add options to <code>pyproject.toml</code>:</p>
+
+          <pre style="font-size:0.8em;"><code data-trim data-noescape class="yaml">
+          [tool.ruff]
+          line-length = 100
+          ignore = ["D203"]
+          show-source = true
+          </code></pre>
+
+          <p class="padded">Run <code>ruff</code> on a file or folder:</p>
+          <pre style="font-size:0.7em;"><code data-trim data-noescape class="bash">
+          # Error out if there are Python syntax errors or undefined names
+          ruff . --select=E9,F63,F7,F82
+
+          # Show warnings for other (stylistic) issues
+          ruff .
+          </code></pre>
+
+      </section>
 
         <section>
             <h3>Run formatter</h3>
@@ -499,12 +501,10 @@
                 hooks:
                 -   id: black
                     args: ['--config=./pyproject.toml']
-            -   repo: https://gitlab.com/pycqa/flake8
-                rev: 4.0.1
+            -   repo: https://github.com/charliermarsh/ruff-pre-commit
+                rev: v0.0.116
                 hooks:
-                -   id: flake8
-                    exclude: '.venv/'
-                    args: ['--config=.flake8']
+                -   id: ruff
             </code></pre>
 
             <p>Install the hooks:</p>
@@ -537,9 +537,10 @@
                           run: |
                             python -m pip install --upgrade pip
                             pip install -r requirements-dev.txt
-                        - name: Lint with flake8
+                        - name: Lint with ruff
                           run: |
-                            flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+                            ruff . --select=E9,F63,F7,F82
+                            ruff . --exit-zero
                         - name: Check formatting with black
                           uses: psf/black@stable
                           with:
