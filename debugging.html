@@ -470,24 +470,23 @@
                 """
                 Calculates how whiny I'll be if we go on a hike in
                 the given conditions.
-
                 >>> calculate_whininess(67, 3, 0)
                 0
-                >>> calculate_whininess(60, 20, 10)
-                20
-                >>> calculate_whininess(80, 20, 10)
-                25
+                >>> calculate_whininess(67, 6, 0)
+                10
+                >>> calculate_whininess(67, 6, 10)
+                5
+                >>> calculate_whininess(50, 0, 0)
+                15
                 """
                 whininess = 0
                 if windspeed > 5:
                     whininess += 10
                 elif incline > 0:
                     whininess = incline / 2
-                if temperature &lt; 65:
-                    whininess += 65 - temperature
-                    if temperature > 70:
-                        whininess += temperature - 70
-                return whininess
+                elif temperature < 65:
+                    whininess += 65 + temperature
+                return round(whininess)
             </code></pre>
 
         </section>
@@ -505,7 +504,7 @@
 
             <pre style="font-size:0.7em;"><code data-trim data-noescape class="python">
             ...
-            if incline > 0:
+            elif incline > 0:
                 print("here! incline > 0")
                 whininess = incline / 2
                 print("whininess", whininess)
@@ -519,10 +518,10 @@
             <p>A tool designed especially for understanding the execution
                 of Python code.</p>
 
-            <img src="media/screenshot_pythontutor.png" alt="Screenshot of PythonTutor"/>
+            <img src="media/screenshot_pythontutor.png" alt="Screenshot of PythonTutor" height="350"/>
 
             <p class="python-tutor-link">
-                <a target="_blank" href="https://pythontutor.com/render.html#code=def%20calculate_whininess%28temperature,%20windspeed,%20incline%29%3A%0A%20%20%20%20%22%22%22%0A%20%20%20%20Calculates%20how%20whiny%20I'll%20be%20if%20we%20go%20on%20a%20hike%20in%0A%20%20%20%20the%20given%20conditions.%0A%0A%20%20%20%20%3E%3E%3E%20calculate_whininess%2867,%203,%200%29%0A%20%20%20%200%0A%20%20%20%20%3E%3E%3E%20calculate_whininess%2860,%2020,%2010%29%0A%20%20%20%2020%0A%20%20%20%20%3E%3E%3E%20calculate_whininess%2880,%2020,%2010%29%0A%20%20%20%2025%0A%20%20%20%20%22%22%22%0A%20%20%20%20whininess%20%3D%200%0A%20%20%20%20if%20windspeed%20%3E%205%3A%0A%20%20%20%20%20%20%20%20whininess%20%2B%3D%2010%0A%20%20%20%20elif%20incline%20%3E%200%3A%0A%20%20%20%20%20%20%20%20whininess%20%3D%20incline%20/%202%0A%20%20%20%20if%20temperature%20%3C%2065%3A%0A%20%20%20%20%20%20%20%20whininess%20%2B%3D%2065%20-%20temperature%0A%20%20%20%20%20%20%20%20if%20temperature%20%3E%2070%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20whininess%20%2B%3D%20temperature%20-%2070%0A%20%20%20%20return%20whininess%0A%20%20%20%20%0Acalculate_whininess%2860,%2020,%2010%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false">
+                <a target="_blank" href="https://pythontutor.com/visualize.html#code=def%20calculate_whininess%28temperature,%20windspeed,%20incline%29%3A%0A%20%20%20%20%22%22%22%0A%20%20%20%20Calculates%20how%20whiny%20I'll%20be%20if%20we%20go%20on%20a%20hike%20in%0A%20%20%20%20the%20given%20conditions.%0A%20%20%20%20%3E%3E%3E%20calculate_whininess%2867,%203,%200%29%0A%20%20%20%200%0A%20%20%20%20%3E%3E%3E%20calculate_whininess%2867,%206,%200%29%0A%20%20%20%2010%0A%20%20%20%20%3E%3E%3E%20calculate_whininess%2867,%206,%2010%29%0A%20%20%20%205%0A%20%20%20%20%3E%3E%3E%20calculate_whininess%2850,%200,%200%29%0A%20%20%20%2015%0A%20%20%20%20%22%22%22%0A%20%20%20%20whininess%20%3D%200%0A%20%20%20%20if%20windspeed%20%3E%205%3A%0A%20%20%20%20%20%20%20%20whininess%20%2B%3D%2010%0A%20%20%20%20elif%20incline%20%3E%200%3A%0A%20%20%20%20%20%20%20%20whininess%20%3D%20incline%20/%202%0A%20%20%20%20elif%20temperature%20%3C%2065%3A%0A%20%20%20%20%20%20%20%20whininess%20%2B%3D%2065%20%2B%20temperature%0A%20%20%20%20return%20round%28whininess%29%0A%20%20%20%20%0Acalculate_whininess%2867,%206,%2010%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false">
                 View buggy code in PythonTutor
                 </a>
             </p>
