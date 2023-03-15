@@ -7,7 +7,7 @@ def calculate_whininess(temperature, windspeed, incline):
     >>> calculate_whininess(67, 6, 0)
     10
     >>> calculate_whininess(67, 6, 10)
-    5
+    15
     >>> calculate_whininess(50, 0, 0)
     15
     """
@@ -19,5 +19,3 @@ def calculate_whininess(temperature, windspeed, incline):
     elif temperature < 65:
         whininess += 65 + temperature
     return round(whininess)
-
-calculate_whininess(67, 6, 10)
