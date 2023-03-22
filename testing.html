@@ -173,7 +173,9 @@
                 <li><a target="_blank" href="https://docs.python.org/3/library/doctest.html">doctest</a>: Built-in, has some limitations
                 <li><a target="_blank" href="https://docs.python.org/3/library/unittest.html">unittest</a>: Built-in, more sophisticated
                 <li><a target="_blank" href="https://docs.pytest.org/">pytest</a>: Popular third-party library
+                  <li><a target="_blank" href="https://pypi.org/project/hypothesis/">hypothesis</a>: Property-based testing library
                 <li><a target="_blank" href="https://pypi.org/project/selenium/">selenium</a>: Browser automation library
+                <li><a target="_blank" href="https://playwright.dev/python/docs/library">playwright</a>: (Headless) Browser automation library
             </ul>
         </section>
 
@@ -491,14 +493,11 @@
               - name: Set up Python 3
                 uses: actions/setup-python@v3
                 with:
-                  python-version: 3.9
+                  python-version: 3.11
               - name: Install dependencies
                 run: |
                   python -m pip install --upgrade pip
-                  pip install -r requirements-dev.txt
-              - name: Lint with flake8
-                run: |
-                  flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+                  pip install pytest
               - name: Run unit tests
                 run: |
                   pytest
