@@ -1,21 +1,25 @@
-def calculate_whininess(temperature, windspeed, incline):
+def suggest_supplies(temperature, windspeed, incline):
     """
-    Calculates how whiny I'll be if we go on a hike in
-    the given conditions.
-    >>> calculate_whininess(67, 3, 0)
-    0
-    >>> calculate_whininess(67, 6, 0)
-    10
-    >>> calculate_whininess(67, 6, 10)
-    15
-    >>> calculate_whininess(50, 0, 0)
-    15
+    >>> suggest_supplies(33, 3, 0)
+    ''
+    >>> suggest_supplies(33, 3, 5)
+    'stick '
+    >>> suggest_supplies(33, 6, 0)
+    'windbreaker '
+    >>> suggest_supplies(17, 0, 0)
+    'thermal '
+    >>> suggest_supplies(33, 6, 10)
+    'windbreaker stick '
+    >>> suggest_supplies(17, 0, 10)
+    'stick thermal '
     """
-    whininess = 0
+    supplies = ''
     if windspeed > 5:
-        whininess += 10
+        supplies += 'windbreaker '
     elif incline > 0:
-        whininess = incline / 2
-    elif temperature < 65:
-        whininess += 65 + temperature
-    return round(whininess)
+        supplies = 'stick '
+    elif temperature < 32:
+        supplies += 'thermal '
+    return supplies
+
+suggest_supplies(33, 6, 10)

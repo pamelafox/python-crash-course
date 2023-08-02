@@ -466,27 +466,29 @@
 
             <p class="smaller">Let's start with this buggy code:</p>
             <pre style="font-size:0.5em; height: 450px;"><code data-trim data-noescape class="python">
-            def calculate_whininess(temperature, windspeed, incline):
+            def suggest_supplies(temperature, windspeed, incline):
                 """
-                Calculates how whiny I'll be if we go on a hike in
-                the given conditions.
-                >>> calculate_whininess(67, 3, 0)
-                0
-                >>> calculate_whininess(67, 6, 0)
-                10
-                >>> calculate_whininess(67, 6, 10)
-                15
-                >>> calculate_whininess(50, 0, 0)
-                15
+                >>> suggest_supplies(33, 3, 0)
+                ''
+                >>> suggest_supplies(33, 3, 5)
+                'stick '
+                >>> suggest_supplies(33, 6, 0)
+                'windbreaker '
+                >>> suggest_supplies(17, 0, 0)
+                'thermal '
+                >>> suggest_supplies(33, 6, 10)
+                'windbreaker stick '
+                >>> suggest_supplies(17, 0, 10)
+                'stick thermal '
                 """
-                whininess = 0
+                supplies = ''
                 if windspeed > 5:
-                    whininess += 10
+                    supplies += 'windbreaker '
                 elif incline > 0:
-                    whininess = incline / 2
-                elif temperature < 65:
-                    whininess += 65 + temperature
-                return round(whininess)
+                    supplies = 'stick '
+                elif temperature &lt; 32:
+                    supplies += 'thermal '
+                return supplies
             </code></pre>
 
         </section>
@@ -506,8 +508,8 @@
             ...
             elif incline > 0:
                 print("here! incline > 0")
-                whininess = incline / 2
-                print("whininess", whininess)
+                supplies = 'stick '
+                print("supplies", supplies)
             ...
             </code></pre>
         </section>
@@ -521,7 +523,7 @@
             <img src="media/screenshot_pythontutor.png" alt="Screenshot of PythonTutor" height="350"/>
 
             <p class="python-tutor-link">
-                <a target="_blank" href="https://pythontutor.com/visualize.html#code=def%20calculate_whininess%28temperature,%20windspeed,%20incline%29%3A%0A%20%20%20%20%22%22%22%0A%20%20%20%20Calculates%20how%20whiny%20I'll%20be%20if%20we%20go%20on%20a%20hike%20in%0A%20%20%20%20the%20given%20conditions.%0A%20%20%20%20%3E%3E%3E%20calculate_whininess%2867,%203,%200%29%0A%20%20%20%200%0A%20%20%20%20%3E%3E%3E%20calculate_whininess%2867,%206,%200%29%0A%20%20%20%2010%0A%20%20%20%20%3E%3E%3E%20calculate_whininess%2867,%206,%2010%29%0A%20%20%20%205%0A%20%20%20%20%3E%3E%3E%20calculate_whininess%2850,%200,%200%29%0A%20%20%20%2015%0A%20%20%20%20%22%22%22%0A%20%20%20%20whininess%20%3D%200%0A%20%20%20%20if%20windspeed%20%3E%205%3A%0A%20%20%20%20%20%20%20%20whininess%20%2B%3D%2010%0A%20%20%20%20elif%20incline%20%3E%200%3A%0A%20%20%20%20%20%20%20%20whininess%20%3D%20incline%20/%202%0A%20%20%20%20elif%20temperature%20%3C%2065%3A%0A%20%20%20%20%20%20%20%20whininess%20%2B%3D%2065%20%2B%20temperature%0A%20%20%20%20return%20round%28whininess%29%0A%20%20%20%20%0Acalculate_whininess%2867,%206,%2010%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false">
+                <a target="_blank" href="https://pythontutor.com/render.html#code=def%20suggest_supplies%28temperature,%20windspeed,%20incline%29%3A%0A%20%20%20%20%22%22%22%0A%20%20%20%20%3E%3E%3E%20suggest_supplies%2833,%203,%200%29%0A%20%20%20%20''%0A%20%20%20%20%3E%3E%3E%20suggest_supplies%2833,%203,%205%29%0A%20%20%20%20'stick%20'%0A%20%20%20%20%3E%3E%3E%20suggest_supplies%2833,%206,%200%29%0A%20%20%20%20'windbreaker%20'%0A%20%20%20%20%3E%3E%3E%20suggest_supplies%2817,%200,%200%29%0A%20%20%20%20'thermal%20'%0A%20%20%20%20%3E%3E%3E%20suggest_supplies%2833,%206,%2010%29%0A%20%20%20%20'windbreaker%20stick%20'%0A%20%20%20%20%3E%3E%3E%20suggest_supplies%2817,%200,%2010%29%0A%20%20%20%20'stick%20thermal%20'%0A%20%20%20%20%22%22%22%0A%20%20%20%20supplies%20%3D%20''%0A%20%20%20%20if%20windspeed%20%3E%205%3A%0A%20%20%20%20%20%20%20%20supplies%20%2B%3D%20'windbreaker%20'%0A%20%20%20%20elif%20incline%20%3E%200%3A%0A%20%20%20%20%20%20%20%20supplies%20%3D%20'stick%20'%0A%20%20%20%20elif%20temperature%20%3C%2032%3A%0A%20%20%20%20%20%20%20%20supplies%20%2B%3D%20'thermal%20'%0A%20%20%20%20return%20supplies%0A%20%20%20%20%0Asuggest_supplies%2833,%206,%2010%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false">
                 View buggy code in PythonTutor
                 </a>
             </p>
@@ -532,7 +534,7 @@
 
             <p>Set breakpoints in an IDE and step line-by-line through the code that follows.</p>
 
-            <img src="media/screenshot_breakpoint.png" alt="Screenshot of PythonTutor"/>
+            <img src="media/screenshot_debugger.png" alt="Screenshot of VS Code with debugger enabled for Python file"/>
 
             <p>For VS Code, install the <a target="_blank" href="https://marketplace.visualstudio.com/items?itemName=ms-python.python">Python extension</a> first.</p>
         </section>
