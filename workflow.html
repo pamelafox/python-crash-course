@@ -383,10 +383,10 @@
             <p>Add to <code>requirements-dev.txt</code>:</p>
             <pre style="font-size:0.7em;"><code data-trim data-noescape class="text">
             -r requirements.txt
-            black==22.3.0
-            pytest==7.1.2
-            coverage==6.4.1
-            pytest-cov==3.0.0
+            black
+            pytest
+            coverage
+            pytest-cov
             pre-commit
             ruff
             </code></pre>
@@ -427,10 +427,10 @@
           <p class="padded">Run <code>ruff</code> on a file or folder:</p>
           <pre style="font-size:0.7em;"><code data-trim data-noescape class="bash">
           # Error out if there are Python syntax errors or undefined names
-          ruff . --select=E9,F63,F7,F82
+          python3 -m ruff . --select=E9,F63,F7,F82
 
           # Show warnings for other (stylistic) issues
-          ruff .
+          python3 -m ruff .
           </code></pre>
 
       </section>
@@ -445,12 +445,12 @@
             <pre style="font-size:0.8em;"><code data-trim data-noescape class="yaml">
             [tool.black]
             line-length = 100
-            target-version = ['py39']
+            target-version = ['py311']
             </code></pre>
 
             <p class="padded">Run black on a file or folder:</p>
             <pre style="font-size:0.8em;"><code data-trim data-noescape class="bash">
-            black --verbose . tests/
+            python3 -m black --verbose . tests/
             </code></pre>
 
             <p class="padded">⚠️ By default, black will rewrite the files. Use <code>--check</code>
@@ -490,21 +490,21 @@
             <p>Create a <code>.pre-commit-config.yaml</code> file:</p>
             <pre style="font-size:0.35em;"><code data-trim data-noescape class="yaml">
             repos:
-            -   repo: https://github.com/pre-commit/pre-commit-hooks
-                rev: v2.3.0
-                hooks:
-                -   id: check-yaml
-                -   id: end-of-file-fixer
-                -   id: trailing-whitespace
-            -   repo: https://github.com/psf/black
-                rev: 22.3.0
-                hooks:
-                -   id: black
-                    args: ['--config=./pyproject.toml']
-            -   repo: https://github.com/charliermarsh/ruff-pre-commit
-                rev: v0.0.116
-                hooks:
-                -   id: ruff
+              -   repo: https://github.com/pre-commit/pre-commit-hooks
+                  rev: v4.5.0
+                  hooks:
+                  -   id: check-yaml
+                  -   id: end-of-file-fixer
+                  -   id: trailing-whitespace
+              -   repo: https://github.com/psf/black
+                  rev: 24.1.1
+                  hooks:
+                  -   id: black
+                      args: ['--config=./pyproject.toml']
+              -   repo: https://github.com/astral-sh/ruff-pre-commit
+                  rev: v0.2.1
+                  hooks:
+                  -   id: ruff
             </code></pre>
 
             <p>Install the hooks:</p>
@@ -532,7 +532,7 @@
                         - name: Set up Python 3
                           uses: actions/setup-python@v3
                           with:
-                            python-version: 3.9
+                            python-version: 3.11
                         - name: Install dependencies
                           run: |
                             python -m pip install --upgrade pip
